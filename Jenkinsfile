@@ -17,7 +17,7 @@ pipeline {
         stage('Rest Test') {
             steps {
                 catchError(buildResult: 'ABORTED', stageResult: 'FAILURE') {
-                    sh'pytest --junitxml=result-rest.xml test/integration/todoApiTest.py'
+                    sh'pytest --junitxml=result-rest.xml test/integration/todoApiTest.py -m prod'
                     junit 'result-rest.xml'
                 }
             }
