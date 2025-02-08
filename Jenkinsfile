@@ -3,26 +3,14 @@ pipeline {
     stages {
         stage('Get Code') {
             steps {
-                git branch: 'develop', url: 'https://github.com/dieegopa/devops-todo-list'
-            }
-        }
-        stage('Static Test') {
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'SUCCESS') {
-                    sh '''
-                    flake8 --format=pylint --exit-zero src > flake8.out
-                    bandit --exit-zero -r src -f custom -o bandit.out --msg-template "{abspath}:{line}: [{test_id}] {msg}"
-                    '''
-                    recordIssues tools: [flake8(name: 'Flake8', pattern: 'flake8.out')], qualityGates: [[integerThreshold: 8, threshold: 8.0, type: 'TOTAL'], [criticality: 'ERROR', integerThreshold: 10, threshold: 10.0, type: 'TOTAL']]
-                    recordIssues tools: [pyLint(name: 'Bandit', pattern: 'bandit.out')], qualityGates: [[integerThreshold: 2, threshold: 2.0, type: 'TOTAL'], [criticality: 'ERROR', integerThreshold: 4, threshold: 4.0, type: 'TOTAL']]
-                }
+                git branch: 'master', url: 'https://github.com/dieegopa/devops-todo-list'
             }
         }
         stage('Deploy') {
             steps {
                 sh'''
                 sam build
-                sam deploy --region us-east-1 --stack-name todo-list-aws --capabilities CAPABILITY_IAM --parameter-overrides Stage=staging --s3-bucket deploy-todo --no-confirm-changeset --no-fail-on-empty-changeset
+                sam deploy --region us-east-1 --stack-name todo-list-aws --capabilities CAPABILITY_IAM --parameter-overrides Stage=production --s3-bucket deploy-todo --no-confirm-changeset --no-fail-on-empty-changeset
                 '''
             }
         }
