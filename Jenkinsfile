@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh'''
                 sam build
-                sam deploy --region us-east-1 --stack-name todo-list-aws --capabilities CAPABILITY_IAM --parameter-overrides Stage=production --s3-bucket deploy-todo --no-confirm-changeset --no-fail-on-empty-changeset
+                sam deploy --region us-east-1 --stack-name todo-list-aws --capabilities CAPABILITY_IAM --parameter-overrides Stage=production --s3-bucket deploy-todo-prod --no-confirm-changeset --no-fail-on-empty-changeset
                 '''
             }
         }
