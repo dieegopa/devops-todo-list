@@ -2,7 +2,7 @@ pipeline {
     agent none
     stages {
         stage('Get Code') {
-            agent { label 'principal' }
+            agent { label 'agent1' }
             options { skipDefaultCheckout() }
             steps {
                 git branch: 'master', url: 'https://github.com/dieegopa/devops-todo-list'
@@ -21,7 +21,7 @@ pipeline {
             }
         }
         stage('Deploy') {
-            agent { label 'agent1' }
+            agent { label 'principal' }
             options { skipDefaultCheckout() }
             steps {
                 sh'''
