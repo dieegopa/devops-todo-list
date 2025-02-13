@@ -12,6 +12,7 @@ pipeline {
                 echo $WORKSPACE
                 '''
                 stash includes: '**', name: 'rest'
+                stash includes: '**', name: 'deploy'
             }
 
             post {
@@ -24,6 +25,7 @@ pipeline {
             agent { label 'principal' }
             options { skipDefaultCheckout() }
             steps {
+                unstash 'deploy'
                 sh'''
                 whoami
                 hostname
