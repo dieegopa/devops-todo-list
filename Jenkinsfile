@@ -4,9 +4,7 @@ pipeline {
         stage('Get Code') {
             steps {
                 git branch: 'develop', url: 'https://github.com/dieegopa/devops-todo-list'
-                sh '''
-                wget -O samconfig.toml https://raw.githubusercontent.com/dieegopa/devops-todo-list-config/staging/samconfig.toml
-                '''
+                sh 'wget -O samconfig.toml "https://raw.githubusercontent.com/dieegopa/devops-todo-list-config/staging/samconfig.toml?t=$(date +%s)"'
             }
         }
         stage('Static Test') {
@@ -49,6 +47,12 @@ pipeline {
                     '''
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
         }
     }
 }
