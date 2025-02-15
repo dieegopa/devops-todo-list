@@ -4,6 +4,9 @@ pipeline {
         stage('Get Code') {
             steps {
                 git branch: 'develop', url: 'https://github.com/dieegopa/devops-todo-list'
+                sh '''
+                wget -O samconfig.toml https://raw.githubusercontent.com/dieegopa/devops-todo-list-config/staging/samconfig.toml
+                '''
             }
         }
         stage('Static Test') {
@@ -22,7 +25,7 @@ pipeline {
             steps {
                 sh'''
                 sam build
-                sam deploy --region us-east-1 --stack-name todo-list-aws --capabilities CAPABILITY_IAM --parameter-overrides Stage=staging --s3-bucket deploy-todo --no-confirm-changeset --no-fail-on-empty-changeset
+                sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
                 '''
             }
         }
