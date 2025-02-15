@@ -40,8 +40,8 @@ pipeline {
                 withCredentials([sshUserPrivateKey(credentialsId: '8958c5f2-695c-4a0c-b327-de3a47c0ff10', keyFileVariable: 'SSH_KEY')]) {
                     sh '''
                         git config pull.rebase false
-                        git fetch --all
-                        git ls-remote --heads https://github.com/dieegopa/devops-todo-list
+                        git fetch origin master
+                        git branch
                         git checkout master
                         git pull origin master
                         git merge develop --strategy-option=theirs --no-ff -m "Merge develop into master for release"
