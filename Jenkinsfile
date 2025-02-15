@@ -41,6 +41,7 @@ pipeline {
                     sh '''
                         git config pull.rebase false
                         git fetch --all
+                        git ls-remote --heads https://github.com/dieegopa/devops-todo-list
                         git checkout master
                         git pull origin master
                         git merge develop --strategy-option=theirs --no-ff -m "Merge develop into master for release"
