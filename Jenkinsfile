@@ -42,7 +42,7 @@ pipeline {
                         git config pull.rebase false
                         git checkout master
                         git pull origin master
-                        git merge develop --no-ff -m "Merge develop into master for release"
+                        git merge develop --strategy-option=theirs --no-ff -m "Merge develop into master for release"
                         git push git@github.com:dieegopa/devops-todo-list.git master
                     '''
                 }
