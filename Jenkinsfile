@@ -5,7 +5,7 @@ pipeline {
             steps {
                 git branch: 'develop', url: 'https://github.com/dieegopa/devops-todo-list'
                 sh '''
-                wget -O ./devops-todo-list/samconfig.toml https://raw.githubusercontent.com/dieegopa/devops-todo-list-config/staging/samconfig.toml
+                wget -O samconfig.toml https://raw.githubusercontent.com/dieegopa/devops-todo-list-config/staging/samconfig.toml
                 '''
             }
         }
