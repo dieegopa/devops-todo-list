@@ -23,7 +23,7 @@ pipeline {
             steps {
                 sh'''
                 sam build
-                sam deploy --config-file samconfig.toml --no-confirm-changeset --no-fail-on-empty-changeset
+                sam deploy --config-file samconfig.toml --config-env staging --no-confirm-changeset --no-fail-on-empty-changeset
                 '''
             }
         }
